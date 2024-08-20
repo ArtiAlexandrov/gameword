@@ -42,9 +42,9 @@
                 const randomWord = document.getElementById('random-word').textContent;
                 const transformedWord = transformWord(randomWord);
                 if (userInput === transformedWord) {
-                    updateScore(1);
-                } else {
                     updateScoreMinus(1);
+                } else {
+                    updateScore(1);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
                 fetch('words.txt')
@@ -118,7 +118,9 @@
         function updateScoreMinus(points) {
             const scoreDiv = document.getElementById('score-count');
             const currentScore = parseInt(scoreDiv.textContent);
-            scoreDiv.textContent = `${currentScore - points}`;
+            if  (currentScore > 0) {
+                scoreDiv.textContent = `${currentScore - points}`;
+            }
         }
     </script>   
 </body>
