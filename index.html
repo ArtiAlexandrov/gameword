@@ -50,6 +50,7 @@
                     const words = data.split('\n');
                     setRandomWord(words);
                 });
+            document.getElementById('user-input').value = '';
         };
 
         document.getElementById('submit-btn').addEventListener('click', submitAction);
