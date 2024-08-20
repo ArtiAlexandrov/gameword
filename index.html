@@ -36,7 +36,7 @@
             });
 
         const submitAction = () => {
-            const userInput = document.getElementById('user-input').value;
+            const userInput = document.getElementById('user-input').value.toLowerCase();
             const randomWord = document.getElementById('random-word').textContent;
             const transformedWord = transformWord(randomWord);
             if (userInput === transformedWord) {
