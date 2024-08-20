@@ -1,0 +1,157 @@
+:root {
+    --md-sys-color-primary: rgb(89 100 32);
+    --md-sys-color-surface-tint: rgb(89 100 32);
+    --md-sys-color-on-primary: rgb(255 255 255);
+    --md-sys-color-primary-container: rgb(220 234 151);
+    --md-sys-color-on-primary-container: rgb(25 30 0);
+    --md-sys-color-secondary: rgb(93 97 69);
+    --md-sys-color-on-secondary: rgb(255 255 255);
+    --md-sys-color-secondary-container: rgb(226 229 194);
+    --md-sys-color-on-secondary-container: rgb(26 29 8);
+    --md-sys-color-tertiary: rgb(59 102 92);
+    --md-sys-color-on-tertiary: rgb(255 255 255);
+    --md-sys-color-tertiary-container: rgb(189 236 223);
+    --md-sys-color-on-tertiary-container: rgb(0 32 26);
+    --md-sys-color-error: rgb(186 26 26);
+    --md-sys-color-on-error: rgb(255 255 255);
+    --md-sys-color-error-container: rgb(255 218 214);
+    --md-sys-color-on-error-container: rgb(65 0 2);
+    --md-sys-color-background: rgb(251 250 237);
+    --md-sys-color-on-background: rgb(27 28 21);
+    --md-sys-color-surface: rgb(251 250 237);
+    --md-sys-color-on-surface: rgb(27 28 21);
+    --md-sys-color-surface-variant: rgb(228 227 211);
+    --md-sys-color-on-surface-variant: rgb(70 72 59);
+    --md-sys-color-outline: rgb(119 120 106);
+    --md-sys-color-outline-variant: rgb(199 199 183);
+    --md-sys-color-shadow: rgb(0 0 0);
+    --md-sys-color-scrim: rgb(0 0 0);
+    --md-sys-color-inverse-surface: rgb(48 49 41);
+    --md-sys-color-inverse-on-surface: rgb(243 241 228);
+    --md-sys-color-inverse-primary: rgb(192 206 125);
+    --md-sys-color-primary-fixed: rgb(220 234 151);
+    --md-sys-color-on-primary-fixed: rgb(25 30 0);
+    --md-sys-color-primary-fixed-dim: rgb(192 206 125);
+    --md-sys-color-on-primary-fixed-variant: rgb(65 75 8);
+    --md-sys-color-secondary-fixed: rgb(226 229 194);
+    --md-sys-color-on-secondary-fixed: rgb(26 29 8);
+    --md-sys-color-secondary-fixed-dim: rgb(197 201 168);
+    --md-sys-color-on-secondary-fixed-variant: rgb(69 73 47);
+    --md-sys-color-tertiary-fixed: rgb(189 236 223);
+    --md-sys-color-on-tertiary-fixed: rgb(0 32 26);
+    --md-sys-color-tertiary-fixed-dim: rgb(162 208 195);
+    --md-sys-color-on-tertiary-fixed-variant: rgb(34 78 69);
+    --md-sys-color-surface-dim: rgb(220 218 206);
+    --md-sys-color-surface-bright: rgb(251 250 237);
+    --md-sys-color-surface-container-lowest: rgb(255 255 255);
+    --md-sys-color-surface-container-low: rgb(246 244 231);
+    --md-sys-color-surface-container: rgb(240 238 226);
+    --md-sys-color-surface-container-high: rgb(234 233 220);
+    --md-sys-color-surface-container-highest: rgb(228 227 214);
+}  
+
+h1 {
+    font-family: "Comfortaa", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 3em;
+    font-weight: 500;
+    font-style: normal;
+    margin: 0;
+    color: var(--md-sys-color-primary);
+}
+
+h2 {
+    font-family: "Comfortaa", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 5em;
+    font-weight: 900;
+    font-style: normal;
+    margin: 0;
+    color: var(--md-sys-color-on-primary-container);
+}
+
+body {
+    background-color: var(--md-sys-color-primary-container);
+    background-image: url(pattern.png);
+    background-size: 300px;
+    height: 90vh;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-content: center;
+    justify-content: center;
+    height: 100%;
+    align-items: center;
+    width: 100%;
+    gap: 16px;
+}
+
+p {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-size: 1em;
+    font-weight: 500;
+    margin: 0;
+    font-style: normal;
+    color: var(--md-sys-color-on-primary);
+}
+
+.score {
+    display: flex;
+    gap: 16px;
+    padding: 8px 8px 8px 24px;
+    background: var(--md-sys-color-primary);
+    border-radius: 32px;
+    align-items: center;
+}
+
+.score-count {
+    color: var(--md-sys-color-primary);
+}
+
+.score-field {
+    padding: 8px 24px;
+    border-radius: 24px;
+    background-color: var(--md-sys-color-primary-container);
+}
+
+.submit {
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    border: 0;
+    padding: 12px 24px;
+    font-size: 1em;
+    border-radius: 24px;
+    background-color: var(--md-sys-color-tertiary);
+    color: var(--md-sys-color-on-tertiary);
+    cursor: pointer;
+}
+
+.submit:active {
+    background-color: var(--md-sys-color-on-tertiary-fixed);
+}
+
+.answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 16px;
+}
+
+input {
+    border: 0;
+    background-color: var(--md-sys-color-on-secondary);
+    padding: 12px 24px;
+    font-size: 1em;
+    color: var(--md-sys-color-secondary);
+    font-family: "Nunito", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 900;
+    font-style: normal;
+    border-radius: 8px;
+}

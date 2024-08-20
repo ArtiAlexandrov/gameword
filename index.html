@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="style.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Nunito:ital,wght@0,200..1000;1,200..1000&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <title>Слово-Хуёво</title>
+</head>
+<body>
+    <div class="main">
+        <h1 class="title">Слово-Хуёво</h1>
+        <h2 id="random-word">Слово</h2>
+        <div class="answer">
+            <input type="text" name="Слово" id="user-input" placeholder="Хуёво...">
+            <button class="submit" id="submit-btn">Ок-Хуёк!</button>
+        </div>
+        <div class="score">
+            <p>Счетчик залуп за воротником: </p>
+            <div class="score-field">
+                <p id="score-count" class="score-count">0</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch('words.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const words = data.split('\n');
+                    setRandomWord(words);
+                });
+
+            document.getElementById('submit-btn').addEventListener('click', () => {
+                const userInput = document.getElementById('user-input').value;
+                const randomWord = document.getElementById('random-word').textContent;
+                const transformedWord = transformWord(randomWord);
+                if (userInput === transformedWord) {
+                    updateScore(10);
+                } else {
+                    alert(`Правильное слово: ${transformedWord}`);
+                }
+                setRandomWord(words);
+            });
+        });
+
+        function setRandomWord(words) {
+            const randomIndex = Math.floor(Math.random() * words.length);
+            document.getElementById('random-word').textContent = words[randomIndex].trim();
+        }
+
+        function transformWord(word) {
+            const vowels = ['а', 'я', 'о', 'ё', 'э', 'е', 'ы', 'и', 'у', 'ю'];
+            let vowelCount = 0;
+            let firstVowelIndex = -1;
+            let secondVowelIndex = -1;
+
+            for (let i = 0; i < word.length; i++) {
+                if (vowels.includes(word[i])) {
+                    vowelCount++;
+                    if (firstVowelIndex === -1) {
+                        firstVowelIndex = i;
+                    } else if (secondVowelIndex === -1) {
+                        secondVowelIndex = i;
+                        break;
+                    }
+                }
+            }
+
+            let result;
+            if (vowelCount > 2) {
+                result = word.slice(secondVowelIndex);
+            } else {
+                result = word.slice(firstVowelIndex);
+            }
+
+            const replacements = {
+                'а': 'я',
+                'о': 'ё',
+                'у': 'ю',
+                'ы': 'и',
+                'э': 'е'
+            };
+
+            if (replacements[result[0]]) {
+                result = replacements[result[0]] + result.slice(1);
+            }
+
+            return 'ху' + result;
+        }
+
+        function updateScore(points) {
+            const scoreDiv = document.getElementById('score-count');
+            const currentScore = parseInt(scoreDiv.textContent.split(': ')[1]);
+            scoreDiv.textContent = `Score: ${currentScore + points}`;
+        }
+    </script>
+</body>
