@@ -35,7 +35,7 @@
                 setRandomWord(words);
             });
 
-        document.getElementById('submit-btn').addEventListener('click', () => {
+        const submitAction = () => {
             const userInput = document.getElementById('user-input').value;
             const randomWord = document.getElementById('random-word').textContent;
             const transformedWord = transformWord(randomWord);
@@ -44,7 +44,20 @@
             } else {
                 alert(`Правильное слово: ${transformedWord}`);
             }
-            setRandomWord(words);
+            fetch('words.txt')
+                .then(response => response.text())
+                .then(data => {
+                    const words = data.split('\n');
+                    setRandomWord(words);
+                });
+        };
+
+        document.getElementById('submit-btn').addEventListener('click', submitAction);
+
+        document.getElementById('user-input').addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                submitAction();
+            }
         });
 
         function setRandomWord(words) {
