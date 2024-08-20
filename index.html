@@ -43,6 +43,7 @@
                 if (userInput === transformedWord) {
                     updateScore(10);
                 } else {
+                    updateScoreMinus(10);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
                 fetch('words.txt')
@@ -111,6 +112,12 @@
             const scoreDiv = document.getElementById('score-count');
             const currentScore = parseInt(scoreDiv.textContent);
             scoreDiv.textContent = `${currentScore + points}`;
+        }
+        
+        function updateScoreMinus(points) {
+            const scoreDiv = document.getElementById('score-count');
+            const currentScore = parseInt(scoreDiv.textContent);
+            scoreDiv.textContent = `${currentScore - points}`;
         }
     </script>    
 </body>
