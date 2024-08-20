@@ -27,7 +27,6 @@
                 <p id="score-count" class="score-count">0</p>
             </div>
         </div>
-        <div class="help">?</div>
     </div>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -121,10 +120,5 @@
             const currentScore = parseInt(scoreDiv.textContent);
             scoreDiv.textContent = `${currentScore - points}`;
         }
-    </script>    
-    <script>
-        document.querySelector('.help').addEventListener('click', () => {
-            alert(`ПРАВИЛА ОБРАЗОВАНИЯ СЛОВ-ХУЁВ: Если в исходном слове два слога или меньше, убираем все согласные до первой встреченной гласной. Если больше, до второй. Если получившаяся первая гласная - а, меняем на я, если о - на ё, если у - на ю, если э - на е, если ы - на и. После этого добавляем в начало "ху". Например: молоко - хуёко, кошка - хуёшка, коромысло - хуёмысло.`);
-        });
-    </script>
+    </script>   
 </body>
