@@ -51,7 +51,7 @@
     
             const submitAction = () => {
                 const userInput = document.getElementById('user-input').value.toLowerCase();
-                const transformedWord = transformWord(currentRandomWord); // Используем глобальную переменную
+                const transformedWord = transformWord(currentRandomWord).toLowerCase(); // Используем глобальную переменную
                 if (userInput === transformedWord) {
                     updateScoreMinus(1);
                 } else {
@@ -79,22 +79,40 @@
         function setRandomWord(words) {
             const randomIndex = Math.floor(Math.random() * words.length);
             currentRandomWord = words[randomIndex].trim(); // Сохраняем случайное слово в глобальную переменную
+            animateWord(currentRandomWord.toLowerCase());
+        }
+
+        function animateWord(word) {
             const randomWordElement = document.getElementById('random-word');
-            randomWordElement.classList.remove('shuffle');
-            void randomWordElement.offsetWidth; // Перезапуск анимации
-            randomWordElement.textContent = currentRandomWord.toLowerCase();
-            randomWordElement.classList.add('shuffle');
+            let currentIndex = 0;
+            const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+            const interval = setInterval(() => {
+                if (currentIndex < word.length) {
+                    const currentChar = word[currentIndex];
+                    let charIndex = 0;
+                    const charInterval = setInterval(() => {
+                        randomWordElement.textContent = randomWordElement.textContent.slice(0, currentIndex) + alphabet[charIndex] + randomWordElement.textContent.slice(currentIndex + 1);
+                        charIndex++;
+                        if (alphabet[charIndex] === currentChar) {
+                            clearInterval(charInterval);
+                            currentIndex++;
+                        }
+                    }, 50);
+                } else {
+                    clearInterval(interval);
+                }
+            }, 100);
         }
     
         function transformWord(word) {
-            const vowels = ['а', 'я', 'о', 'ё', 'э', 'е', 'ы', 'и', 'у', 'ю'];
+            const vowels = ['а', 'я', 'о', 'ё', 'э', 'е', 'ы', 'и', 'у', 'ю', 'А', 'Я', 'О', 'Ё', 'Э', 'Е', 'Ы', 'И', 'У', 'Ю'];
             let vowelCount = 0;
             let firstVowelIndex = -1;
             let secondVowelIndex = -1;
             let firstVowelUpperCase = false;
     
             for (let i = 0; i < word.length; i++) {
-                if (vowels.includes(word[i].toLowerCase())) {
+                if (vowels.includes(word[i])) {
                     vowelCount++;
                     if (firstVowelIndex === -1) {
                         firstVowelIndex = i;
