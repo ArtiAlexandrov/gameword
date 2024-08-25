@@ -13,13 +13,15 @@
     <title>Слово-Хуёво</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
     <style>
-        @keyframes shuffle {
-            0% { opacity: 0; }
-            100% { opacity: 1; }
-        }
-
-        .shuffle {
-            animation: shuffle 0.5s ease-in-out;
+        @keyframes fly {
+            0% {
+                transform: translate(0, 0) scale(1);
+                opacity: 1;
+            }
+            100% {
+                transform: translate(var(--x), var(--y)) scale(0.5);
+                opacity: 0;
+            }
         }
 
         .icon {
@@ -27,12 +29,11 @@
             width: 30px;
             height: 30px;
             opacity: 1;
-            transition: transform 1s, opacity 1s;
+            pointer-events: none;
         }
 
         .icon.fly {
-            transform: translate(calc(100vw * (random() - 0.5)), calc(100vh * (random() - 0.5)));
-            opacity: 0;
+            animation: fly 1s ease-out forwards;
         }
     </style>
 </head>
@@ -67,10 +68,10 @@
                 const userInput = document.getElementById('user-input').value.toLowerCase();
                 const transformedWord = transformWord(currentRandomWord).toLowerCase(); // Используем глобальную переменную
                 if (userInput === transformedWord) {
-                    updateScoreMinus(1);
+                    updateScore(1);
                     triggerIconsAnimation();
                 } else {
-                    updateScore(1);
+                    updateScoreMinus(1);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
                 fetch('words.txt')
@@ -129,11 +130,17 @@
             const iconsContainer = document.getElementById('icons-container');
             iconsContainer.innerHTML = ''; // Очистка контейнера перед добавлением новых иконок
 
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < 20; i++) {
                 const icon = document.createElement('img');
                 icon.src = 'icon.svg';
                 icon.classList.add('icon');
                 iconsContainer.appendChild(icon);
+
+                // Установка случайных значений для анимации
+                const x = (Math.random() - 0.5) * 200 + 'px';
+                const y = (Math.random() - 0.5) * 200 + 'px';
+                icon.style.setProperty('--x', x);
+                icon.style.setProperty('--y', y);
 
                 // Задержка для запуска анимации
                 setTimeout(() => {
@@ -201,9 +208,7 @@
         function updateScoreMinus(points) {
             const scoreDiv = document.getElementById('score-count');
             const currentScore = parseInt(scoreDiv.textContent);
-            if (currentScore > 0) {
-                scoreDiv.textContent = `${currentScore - points}`;
-            }
+            scoreDiv.textContent = `${currentScore - points}`;
         }
     </script>     
 </body>
