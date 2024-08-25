@@ -12,6 +12,16 @@
     <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
     <title>Слово-Хуёво</title>
     <link rel="shortcut icon" type="image/x-icon" href="favicon.ico">
+    <style>
+        @keyframes shuffle {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
+        }
+
+        .shuffle {
+            animation: shuffle 0.5s ease-in-out;
+        }
+    </style>
 </head>
 <body>
     <div class="main">
@@ -29,8 +39,10 @@
         </div>
     </div>
     <script>
+        let currentRandomWord = ''; // Глобальная переменная для хранения случайного слова
+    
         document.addEventListener('DOMContentLoaded', () => {
-            fetch('words.txt')
+            fetch('words_accents.txt')
                 .then(response => response.text())
                 .then(data => {
                     const words = data.split('\n');
@@ -39,8 +51,7 @@
     
             const submitAction = () => {
                 const userInput = document.getElementById('user-input').value.toLowerCase();
-                const randomWord = document.getElementById('random-word').textContent;
-                const transformedWord = transformWord(randomWord);
+                const transformedWord = transformWord(currentRandomWord); // Используем глобальную переменную
                 if (userInput === transformedWord) {
                     updateScoreMinus(1);
                 } else {
@@ -67,7 +78,12 @@
     
         function setRandomWord(words) {
             const randomIndex = Math.floor(Math.random() * words.length);
-            document.getElementById('random-word').textContent = words[randomIndex].trim();
+            currentRandomWord = words[randomIndex].trim(); // Сохраняем случайное слово в глобальную переменную
+            const randomWordElement = document.getElementById('random-word');
+            randomWordElement.classList.remove('shuffle');
+            void randomWordElement.offsetWidth; // Перезапуск анимации
+            randomWordElement.textContent = currentRandomWord.toLowerCase();
+            randomWordElement.classList.add('shuffle');
         }
     
         function transformWord(word) {
@@ -75,12 +91,16 @@
             let vowelCount = 0;
             let firstVowelIndex = -1;
             let secondVowelIndex = -1;
+            let firstVowelUpperCase = false;
     
             for (let i = 0; i < word.length; i++) {
-                if (vowels.includes(word[i])) {
+                if (vowels.includes(word[i].toLowerCase())) {
                     vowelCount++;
                     if (firstVowelIndex === -1) {
                         firstVowelIndex = i;
+                        if (word[i] === word[i].toUpperCase()) {
+                            firstVowelUpperCase = true;
+                        }
                     } else if (secondVowelIndex === -1) {
                         secondVowelIndex = i;
                     }
@@ -88,7 +108,9 @@
             }
     
             let result;
-            if (vowelCount > 2) {
+            if (vowelCount > 2 && firstVowelUpperCase) {
+                result = word.slice(firstVowelIndex);
+            } else if (vowelCount > 2) {
                 result = word.slice(secondVowelIndex);
             } else {
                 result = word.slice(firstVowelIndex);
@@ -102,7 +124,12 @@
                 'э': 'е'
             };
     
-            if (replacements[result[0]]) {
+            // Проверка на заглавную букву "О"
+            if (result[0] === 'О') {
+                result = 'Ё' + result.slice(1);
+            } else if (result[0] === 'о') {
+                result = 'е' + result.slice(1);
+            } else if (replacements[result[0]]) {
                 result = replacements[result[0]] + result.slice(1);
             }
     
@@ -118,9 +145,10 @@
         function updateScoreMinus(points) {
             const scoreDiv = document.getElementById('score-count');
             const currentScore = parseInt(scoreDiv.textContent);
-            if  (currentScore > 0) {
+            if (currentScore > 0) {
                 scoreDiv.textContent = `${currentScore - points}`;
             }
         }
-    </script>   
+    </script>     
 </body>
+</html>
