@@ -68,10 +68,10 @@
                 const userInput = document.getElementById('user-input').value.toLowerCase();
                 const transformedWord = transformWord(currentRandomWord).toLowerCase(); // Используем глобальную переменную
                 if (userInput === transformedWord) {
-                    updateScoreMinus(1);
+                    updateScore(1);
                     triggerIconsAnimation();
                 } else {
-                    updateScore(1);
+                    updateScoreMinus(1);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
                 fetch('words.txt')
