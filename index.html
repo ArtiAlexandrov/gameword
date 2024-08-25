@@ -113,12 +113,11 @@
                 const transformedWord = transformWord(currentRandomWord).toLowerCase(); // Используем глобальную переменную
                 if (userInput === transformedWord) {
                     updateScore(1);
-                    triggerIconsAnimation();
                 } else {
                     updateScoreMinus(1);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
-                fetch('words.txt')
+                fetch('words_accents.txt')
                     .then(response => response.text())
                     .then(data => {
                         const words = data.split('\n');
