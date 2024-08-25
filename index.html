@@ -68,10 +68,10 @@
                 const userInput = document.getElementById('user-input').value.toLowerCase();
                 const transformedWord = transformWord(currentRandomWord).toLowerCase(); // Используем глобальную переменную
                 if (userInput === transformedWord) {
-                    updateScore(1);
+                    updateScoreMinus(1);
                     triggerIconsAnimation();
                 } else {
-                    updateScoreMinus(1);
+                    updateScore(1);
                     alert(`Правильное слово: ${transformedWord}`);
                 }
                 fetch('words.txt')
@@ -130,17 +130,26 @@
             const iconsContainer = document.getElementById('icons-container');
             iconsContainer.innerHTML = ''; // Очистка контейнера перед добавлением новых иконок
 
-            for (let i = 0; i < 20; i++) {
+            const centerX = window.innerWidth / 2;
+            const centerY = window.innerHeight / 2;
+
+            for (let i = 0; i < 50; i++) { // Увеличиваем количество иконок
                 const icon = document.createElement('img');
                 icon.src = 'icon.svg';
                 icon.classList.add('icon');
                 iconsContainer.appendChild(icon);
 
                 // Установка случайных значений для анимации
-                const x = (Math.random() - 0.5) * 200 + 'px';
-                const y = (Math.random() - 0.5) * 200 + 'px';
+                const angle = Math.random() * 2 * Math.PI;
+                const distance = Math.random() * 200;
+                const x = Math.cos(angle) * distance + 'px';
+                const y = Math.sin(angle) * distance + 'px';
                 icon.style.setProperty('--x', x);
                 icon.style.setProperty('--y', y);
+
+                // Установка начальной позиции в центре экрана
+                icon.style.left = centerX + 'px';
+                icon.style.top = centerY + 'px';
 
                 // Задержка для запуска анимации
                 setTimeout(() => {
