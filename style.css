@@ -100,7 +100,7 @@ body {
     background-color: var(--md-sys-color-primary-container);
     background-image: url(pattern.png);
     background-size: 300px;
-    height: 97vh;
+    height: 90vh;
 }
 
 .main {
@@ -235,21 +235,8 @@ input {
 }
 
 .key-bs {
-    display: flex;
-    width: 100%;
-    height: 100%;
-    align-items: center;
-    justify-content: center;
-    font-family: "Nunito", sans-serif;
-    font-optical-sizing: auto;
-    font-size: medium;
-    font-weight: 700;
-    font-style: normal;
-    border-radius: 4px;
-    border: none;
-    background-color: var(--md-sys-color-tertiary);
-    color: var(--md-sys-color-on-tertiary);
-    padding: 0;
+    background-color: var(--md-sys-color-tertiary) !important;
+    color: var(--md-sys-color-on-tertiary) !important;
 }
 
 .key:active {
@@ -257,7 +244,7 @@ input {
 }
 
 .key-bs:active {
-    background-color: var(--md-sys-color-on-tertiary-fixed-variant);
+    background-color: var(--md-sys-color-on-tertiary-fixed-variant) !important;
 }
 
 .k-submit:active {
