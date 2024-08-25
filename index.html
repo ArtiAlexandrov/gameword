@@ -88,26 +88,26 @@
             let currentIndex = 0;
             randomWordElement.textContent = ''; // Очистка текста перед анимацией
 
-            const interval = setInterval(() => {
+            function animateChar() {
                 if (currentIndex < word.length) {
                     let charIndex = 0;
                     const currentChar = word[currentIndex];
-                    const charInterval = setInterval(() => {
+                    function animateCurrentChar() {
                         if (charIndex < alphabet.length) {
                             randomWordElement.textContent = randomWordElement.textContent.slice(0, currentIndex) + alphabet[charIndex] + randomWordElement.textContent.slice(currentIndex + 1);
                             charIndex++;
-                        } else {
-                            clearInterval(charInterval);
+                            if (alphabet[charIndex - 1] === currentChar) {
+                                currentIndex++;
+                                requestAnimationFrame(animateChar);
+                            } else {
+                                requestAnimationFrame(animateCurrentChar);
+                            }
                         }
-                        if (alphabet[charIndex - 1] === currentChar) {
-                            clearInterval(charInterval);
-                            currentIndex++;
-                        }
-                    }, 50);
-                } else {
-                    clearInterval(interval);
+                    }
+                    animateCurrentChar();
                 }
-            }, 100);
+            }
+            animateChar();
         }
     
         function transformWord(word) {
