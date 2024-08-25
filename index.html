@@ -84,16 +84,22 @@
 
         function animateWord(word) {
             const randomWordElement = document.getElementById('random-word');
-            let currentIndex = 0;
             const alphabet = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя';
+            let currentIndex = 0;
+            randomWordElement.textContent = ''; // Очистка текста перед анимацией
+
             const interval = setInterval(() => {
                 if (currentIndex < word.length) {
-                    const currentChar = word[currentIndex];
                     let charIndex = 0;
+                    const currentChar = word[currentIndex];
                     const charInterval = setInterval(() => {
-                        randomWordElement.textContent = randomWordElement.textContent.slice(0, currentIndex) + alphabet[charIndex] + randomWordElement.textContent.slice(currentIndex + 1);
-                        charIndex++;
-                        if (alphabet[charIndex] === currentChar) {
+                        if (charIndex < alphabet.length) {
+                            randomWordElement.textContent = randomWordElement.textContent.slice(0, currentIndex) + alphabet[charIndex] + randomWordElement.textContent.slice(currentIndex + 1);
+                            charIndex++;
+                        } else {
+                            clearInterval(charInterval);
+                        }
+                        if (alphabet[charIndex - 1] === currentChar) {
                             clearInterval(charInterval);
                             currentIndex++;
                         }
